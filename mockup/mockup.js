@@ -478,6 +478,6 @@ $(document).ready(function() {
   speedDial = $('#speed-dial');
   speedValue = $('#speed');
   startTime();
-  activateMusic();
+  activateCalls();
   decellerate();
 })
