@@ -71,8 +71,8 @@ function activateCalls() {
   $('#menu-calls').addClass('active');
   
   /* Move states */
-  $('#navigation').css('top', '100%');
-  $('#music').css('top', '100%');
+  $('#navigation').css('top', '-100%');
+  $('#music').css('top', '-100%');
   
   /* Adjust selector position */
   selector.css('bottom', '165px');
@@ -86,7 +86,7 @@ function activateNavigation() {
   
   /* Move states */
   $('#navigation').css('top', '0px');
-  $('#music').css('top', '100%');
+  $('#music').css('top', '-100%');
   
   /* Adjust selector position */
   selector.css('bottom', '110px');
@@ -173,13 +173,23 @@ function toggleGPS() {
   el = $('#gps-notification')
   if (gps) {
     el.css('top', '-' + el.outerHeight());
-    $('#views').removeClass('padded');
     gps = false;
   } else {
     el.css('top', '25px');
-    $('#views').addClass('padded');
     gps = true;
   }
+}
+
+function initMap() {
+  var mapDiv = document.getElementById('map');
+  var map = new google.maps.Map(mapDiv, {
+    center: {lat: 40.7162412, lng: -73.940614},
+    zoom: 12,
+    disableDefaultUI: true
+  });
+  map.set('styles', [
+    {"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}
+  ])
 }
 
 /* Music */
@@ -188,7 +198,7 @@ function selectNextPlaylist() {
     selectInProgress = true;
     var el = $('#playlist-container');
     el.find('.active-track').removeClass('active-track');
-    el.find('.active-playlist').removeClass('active-playlist').next('.playlist').addClass('active-playlist').children('ul').children(':first-child').addClass('active-track');
+    el.find('.active-playlist').removeClass('active-playlist').next('.playlist').addClass('active-playlist').children('ul').children(':first-child').next('.track').addClass('active-track');
     el.animateToLast();
     t = setTimeout(function() {
       selectInProgress = false;
@@ -200,9 +210,10 @@ function selectPreviousPlaylist() {
   if (!selectInProgress) {
     selectInProgress = true;
     var el = $('#playlist-container');
-    el.animateToFirst();
     el.find('.active-track').removeClass('active-track');
-    el.find('.active-playlist').removeClass('active-playlist').prev('.playlist').addClass('active-playlist').children('ul').children(':first-child').addClass('active-track');
+    el.find('.active-playlist').removeClass('active-playlist');
+    el.children(':last-child').addClass('active-playlist').children('ul').children(':first-child').next('.track').addClass('active-track');
+    el.animateToFirst();
     t = setTimeout(function() {
       selectInProgress = false;
     }, 250);
@@ -216,6 +227,18 @@ function selectNextTrack() {
     var el = $('.active-playlist ul');
     el.find('.active-track').removeClass('active-track').next('.track').addClass('active-track');
     el.animateToLast();
+    t = setTimeout(function() {
+      selectInProgress = false;
+    }, 250);
+  }
+}
+
+function selectPreviousTrack() {
+  if (!selectInProgress) {
+    selectInProgress = true;
+    var el = $('.active-playlist ul');
+    el.animateToFirst();
+    el.find('.active-track').removeClass('active-track').prev('.track').addClass('active-track');
     t = setTimeout(function() {
       selectInProgress = false;
     }, 250);
@@ -283,6 +306,7 @@ function handlePressLeft() {
       break;
     
     case "music":
+      selectPreviousTrack();
       break;
       
     default: return;
@@ -444,7 +468,7 @@ function decellerate() {
 
 function adjustSpeedDial(value) {
   speedValue.html(value);
-  var newBoxShadow = "0 5px 20px 5px rgba(0, 0, 0, .1), inset 0 0 0 " + (150 - speed*1.5) + "px rgba(33, 39, 44, 1)";
+  var newBoxShadow = "0 5px 20px 5px rgba(0, 0, 0, .1), inset 0 0 0 " + (100 - speed) + "px rgba(33, 39, 44, 1)";
   speedDial.css('box-shadow', newBoxShadow)
 }
 
