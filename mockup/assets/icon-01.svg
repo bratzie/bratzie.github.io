@@ -5,19 +5,11 @@
 <style type="text/css">
 	.Half_x0020_Highlight_x0020_Blue{fill:url(#SVGID_1_);stroke:#FFFFFF;stroke-width:0.25;stroke-miterlimit:1;}
 	.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
-	.st1{fill:#060606;}
-	.st2{fill:#010101;}
+	.st1{fill:#FFFFFF;}
+	.st2{fill:#060606;}
 	.st3{opacity:0.3;fill:#060606;}
-	.st4{fill:url(#SVGID_2_);}
-	.st5{fill:#FFFFFF;}
-	.st6{fill:url(#SVGID_3_);}
-	.st7{fill:url(#SVGID_4_);}
-	.st8{fill:url(#SVGID_5_);}
-	.st9{fill:url(#SVGID_6_);}
-	.st10{fill:#040404;}
-	.st11{fill:#30B454;}
-	.st12{opacity:0.5;}
-	.st13{fill:none;}
+	.st4{fill:#30B454;}
+	.st5{opacity:0.5;}
 </style>
 <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="4.489659e-11" y2="-1">
 	<stop  offset="0" style="stop-color:#2D409A"/>

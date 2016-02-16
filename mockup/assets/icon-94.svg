@@ -5,19 +5,11 @@
 <style type="text/css">
 	.Half_x0020_Highlight_x0020_Blue{fill:url(#SVGID_1_);stroke:#FFFFFF;stroke-width:0.25;stroke-miterlimit:1;}
 	.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
-	.st1{fill:#060606;}
-	.st2{fill:#010101;}
+	.st1{fill:#FFFFFF;}
+	.st2{fill:#060606;}
 	.st3{opacity:0.3;fill:#060606;}
-	.st4{fill:url(#SVGID_2_);}
-	.st5{fill:#FFFFFF;}
-	.st6{fill:url(#SVGID_3_);}
-	.st7{fill:url(#SVGID_4_);}
-	.st8{fill:url(#SVGID_5_);}
-	.st9{fill:url(#SVGID_6_);}
-	.st10{fill:#040404;}
-	.st11{fill:#30B454;}
-	.st12{opacity:0.5;}
-	.st13{fill:none;}
+	.st4{fill:#30B454;}
+	.st5{opacity:0.5;}
 </style>
 <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-935.43" y1="-2925.9512" x2="-935.43" y2="-2926.9512">
 	<stop  offset="0" style="stop-color:#2D409A"/>
@@ -47,7 +39,7 @@
 		</g>
 	</g>
 </g>
-<path class="st2" d="M82.4,128.4c15.9,31.2,41.4,56.7,72.6,72.6l24.3-24.3c3-3,7.4-4,11.2-2.6c12.3,4.1,25.7,6.3,39.4,6.3
+<path class="st1" d="M82.4,128.4c15.9,31.2,41.4,56.7,72.6,72.6l24.3-24.3c3-3,7.4-4,11.2-2.6c12.3,4.1,25.7,6.3,39.4,6.3
 	c6.1,0,11,5,11,11v38.5c0,6.1-5,11-11,11c-103.5,0-187.4-83.9-187.4-187.4c0-6.1,5-11,11-11h38.6c6.1,0,11,5,11,11
 	c0,13.8,2.2,27,6.3,39.4c1.2,3.9,0.3,8.2-2.8,11.2L82.4,128.4z"/>
 </svg>

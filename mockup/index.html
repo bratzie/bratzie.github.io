@@ -25,8 +25,9 @@
         <div id="device">
           <div id="top-bar">
             <span>32.5°C</span>
-            <span>46%</span>
             <span id="time">Time</span>
+            <span id="battery">46%</span>
+            <img src="assets/battery%20half%20full-34.svg" />
           </div>
           <div id="bottom-bar">
             <span></span>
@@ -44,6 +45,11 @@
             <p>460m</p>
           </div>
         </div>
+        <div id="gps-bottom">
+          <span class="faded">2 km</span>
+          <span class="bold">5 min</span>
+          <span id="gps-time" class="faded">20:23</span>
+        </div>
         <div id="menu-container">
           <div id="menu">
             <ul>
@@ -59,12 +65,24 @@
             <span id="speed">0</span>
             <span>km/h</span>
           </div>
+          <div id="sd-progress">
+            <div class="circle">
+              <div class="mask full">
+                <div class="fill"></div>
+              </div>
+              <div class="mask half">
+                  <div class="fill"></div>
+                  <div class="fill fix"></div>
+              </div>
+            </div>
+          </div>
+          <div id="sd-backplate"></div>
           <div id="range-dial-container">
             <div id="range-dial">
               <img id="rd-progress" src="assets/icon2-51.svg">
             </div>
+            <span id="range">200km</span>
           </div>
-          <span id="range">200km</span>
         </div>
       </div>
       <div id="views">
@@ -75,13 +93,21 @@
             </div>
             <div id="contacts">
               <div>
-                <img class="contact" src="assets/contact%20image-34-s.png" />
-                <img class="contact active" src="assets/contact%20image-32-s.png" />
-                <img class="contact" src="assets/contact%20image-33-s.png" />
+                <div class="contact">
+                  <img src="assets/contact%20image-34-s.png" />
+                  <p>Jane Cena</p>
+                </div>
+                <div class="contact active">
+                  <img src="assets/contact%20image-32-s.png" />
+                  <p>John Cena</p>
+                </div>
+                <div class="contact">
+                  <img src="assets/contact%20image-33-s.png" />
+                  <p>John Kerry</p>
+                </div>
               </div>
             </div>
             <div id="selected-contact">
-              <p>Best Buddy</p>
               <i class="material-icons small">phone</i>
             </div>
           </div>
@@ -124,12 +150,10 @@
               </li>
             </ul>
             <div id="music-controls">
-              <p>Avicii</p>
               <p>Levels</p>
+              <p>Avicii</p>
               <img id="mc-progress" src="assets/music%20progress%20bar-06.svg" /><br />
-              <i class="material-icons medium">skip_previous</i>
               <i class="material-icons medium">play_circle_outline</i>
-              <i class="material-icons medium">skip_next</i>
             </div>
           </div>
         </div>
@@ -149,7 +173,7 @@
         </section>
         <section>
           <p class="heading">Calls</p>
-          <p>A, D: Switch contact</p>
+          <p>Left/Right: Switch contact</p>
         </section>
         <section>
           <p class="heading">Navigation</p>
@@ -157,8 +181,8 @@
         </section>
         <section>
           <p class="heading">Music</p>
-          <p>A, D: Switch track</p>
-          <p>Left/Right: Switch playlist</p>
+          <p>A, D: Switch playlist</p>
+          <p>Left/Right: Switch track</p>
         </section>
       </div>
     </div>
