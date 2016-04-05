@@ -96,7 +96,7 @@ body {
 }
 
 /* Animation */
-.view, #menu, #selector, #menu li, #gps-notification, #gps-bottom, .contact img, .contact p, .track {
+.view, #menu, #selector, #menu li, #device div, #gps-notification, #gps-bottom, #warning, .contact img, .contact p, .track {
   transition-delay: .1s;
   transition-duration: .4s;
   transition-property: top, bottom, background-color, color, transform, padding-top, box-shadow, height, opacity;
@@ -209,6 +209,19 @@ body {
   margin: 1em;
 }
 
+#temp-contact-buttons {
+  position: relative;
+  top: -260px;
+  z-index: 10;
+}
+
+#prev-contact, #next-contact {
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  margin: 0 30px;
+}
+
 /* Navigation */
 #navigation {
   z-index: 2;
@@ -262,7 +275,7 @@ body {
 
 .active-track {
   opacity: 1;
-  border-bottom: 4px solid rgba(24, 140, 200, 1);
+  /* border-bottom: 4px solid rgba(24, 140, 200, 1); */
 }
 
 .track img {
@@ -283,6 +296,10 @@ body {
   font-weight: 800;
 }
 
+#mc-artist, #mc-song {
+  text-transform: capitalize;
+}
+
 #music-controls i {
   position: relative;
   top: -10px;
@@ -293,6 +310,18 @@ body {
   position: relative;
   top: -10px;
   width: 70%;
+}
+
+#temp-music-buttons {
+  position: relative;
+  top: -220px;
+}
+
+#prev-song, #next-song {
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  margin: 0 30px;
 }
 
 /* Overlays */
@@ -349,9 +378,9 @@ body {
 
 /* GPS Notification */
 #gps-notification {
-  position: relative;
+  position: absolute;
   box-sizing: border-box;
-  top: -150px;
+  top: -100px;
   height: 100px;
   width: 210px;
   background-color: rgba(255, 255, 255, .8);
@@ -436,6 +465,32 @@ body {
 #gps-bottom span:last-child {
   float: right;
   padding-right: 8px;
+}
+
+/* Warning */
+#warning {
+  position: absolute;
+  box-sizing: border-box;
+  top: 25px;
+  height: 100px;
+  width: 210px;
+  opacity: 0;
+  transform: scale(1.2);
+  padding-top: 5px;
+  z-index: 10;
+  background-color: rgba(255, 180, 100, .9);
+  color: white;
+  box-shadow: 0 2px 10px 2px rgba(0, 0, 0, .1);
+  text-align: center;
+  border-radius: 0 0 10px 10px;
+  transition-property: opacity, transform;
+}
+
+#warning p {
+  position: relative;
+  top: -15px;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 /* Menu */
@@ -541,6 +596,7 @@ body {
   box-shadow: 0 20px 20px 5px rgba(0, 0, 0, 0);
   transition: box-shadow .2s linear;
   z-index: 5 !important;
+  pointer-events: all;
 }
 
 #sd-backplate {

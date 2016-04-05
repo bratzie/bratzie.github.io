@@ -50,6 +50,12 @@
           <span class="bold">5 min</span>
           <span id="gps-time" class="faded">20:23</span>
         </div>
+        <div id="warning">
+          <div>
+            <i class="material-icons medium">thumb_down</i>
+            <p>Slow Down!</p>
+          </div>
+        </div>
         <div id="menu-container">
           <div id="menu">
             <ul>
@@ -124,34 +130,34 @@
               <li class="playlist active-playlist">
                 <span class="playlist-title">Roadtrip</span>
                 <ul>
-                  <li class="track"><img src="assets/album%20art-77-s.png" /></li>
-                  <li class="track active-track"><img src="assets/album%20art-78-s.png" /></li>
-                  <li class="track"><img src="assets/album%20art-79-s.png" /></li>
-                  <li class="track"><img src="assets/album%20art-80-s.png" /></li>
+                  <li class="track" data-artist="coldplay" data-song="adventure of a lifetime"><img src="assets/album%20art-77-s.png" /></li>
+                  <li class="track active-track" data-artist="jack johnson" data-song="better together"><img src="assets/album%20art-78-s.png" /></li>
+                  <li class="track" data-artist="avicii" data-song="levels"><img src="assets/album%20art-79-s.png" /></li>
+                  <li class="track" data-artist="adele" data-song="hello"><img src="assets/album%20art-80-s.png" /></li>
                 </ul>
               </li>
               <li class="playlist">
                 <span class="playlist-title">Cruise Control</span>
                 <ul>
-                  <li class="track"><img src="assets/album%20art-80-s.png" /></li>
-                  <li class="track"><img src="assets/album%20art-77-s.png" /></li>
-                  <li class="track"><img src="assets/album%20art-78-s.png" /></li>
-                  <li class="track"><img src="assets/album%20art-79-s.png" /></li>
+                  <li class="track" data-artist="adele" data-song="hello"><img src="assets/album%20art-80-s.png" /></li>
+                  <li class="track" data-artist="coldplay" data-song="adventure of a lifetime"><img src="assets/album%20art-77-s.png" /></li>
+                  <li class="track" data-artist="jack johnson" data-song="better together"><img src="assets/album%20art-78-s.png" /></li>
+                  <li class="track" data-artist="avicii" data-song="levels"><img src="assets/album%20art-79-s.png" /></li>
                 </ul>
               </li>
               <li class="playlist">
                 <span class="playlist-title">Old Shool Rock</span>
                 <ul>
-                  <li class="track"><img src="assets/album%20art-79-s.png" /></li>
-                  <li class="track"><img src="assets/album%20art-77-s.png" /></li>
-                  <li class="track"><img src="assets/album%20art-78-s.png" /></li>
-                  <li class="track"><img src="assets/album%20art-80-s.png" /></li>
+                  <li class="track" data-artist="avicii" data-song="levels"><img src="assets/album%20art-79-s.png" /></li>
+                  <li class="track" data-artist="coldplay" data-song="adventure of a lifetime"><img src="assets/album%20art-77-s.png" /></li>
+                  <li class="track" data-artist="jack johnson" data-song="better together"><img src="assets/album%20art-78-s.png" /></li>
+                  <li class="track" data-artist="adele" data-song="hello"><img src="assets/album%20art-80-s.png" /></li>
                 </ul>
               </li>
             </ul>
             <div id="music-controls">
-              <p>Levels</p>
-              <p>Avicii</p>
+              <p id="mc-song">Levels</p>
+              <p id="mc-artist">Avicii</p>
               <img id="mc-progress" src="assets/music%20progress%20bar-06.svg" /><br />
               <i class="material-icons medium">play_circle_outline</i>
             </div>

@@ -1,4 +1,4 @@
-var state = "calls", selector, gps = false, accellerating = false, activeCall = false, speedDial, speedValue, sdFill, sdFix, selectInProgress = false;
+var state = "calls", selector, gps = false, accellerating = false, activeCall = false, speedDial, speedValue, sdFill, sdFix, selectInProgress = false, warning, device, progress;
 
 var transform_styles = ['-webkit-transform', '-ms-transform', 'transform'];
 
@@ -36,6 +36,14 @@ $.fn.animateToFirst = function() {
       $(this).prependTo($(this).parent()).show("fast");
     }
   );
+  return this;
+}
+
+$.fn.setAsActiveTrack = function() {
+  at = $(this);
+  at.addClass('active-track')
+  $('#mc-artist').html(at.attr('data-artist'));
+  $('#mc-song').html(at.attr('data-song'));
   return this;
 }
 
@@ -214,7 +222,7 @@ function selectNextPlaylist() {
     selectInProgress = true;
     var el = $('#playlist-container');
     el.find('.active-track').removeClass('active-track');
-    el.find('.active-playlist').removeClass('active-playlist').next('.playlist').addClass('active-playlist').children('ul').children(':first-child').next('.track').addClass('active-track');
+    var at = el.find('.active-playlist').removeClass('active-playlist').next('.playlist').addClass('active-playlist').children('ul').children(':first-child').next('.track').setAsActiveTrack();
     el.animateToLast();
     t = setTimeout(function() {
       selectInProgress = false;
@@ -228,7 +236,7 @@ function selectPreviousPlaylist() {
     var el = $('#playlist-container');
     el.find('.active-track').removeClass('active-track');
     el.find('.active-playlist').removeClass('active-playlist');
-    el.children(':last-child').addClass('active-playlist').children('ul').children(':first-child').next('.track').addClass('active-track');
+    el.children(':last-child').addClass('active-playlist').children('ul').children(':first-child').next('.track').setAsActiveTrack();
     el.animateToFirst();
     t = setTimeout(function() {
       selectInProgress = false;
@@ -241,7 +249,7 @@ function selectNextTrack() {
   if (!selectInProgress) {
     selectInProgress = true;
     var el = $('.active-playlist ul');
-    el.find('.active-track').removeClass('active-track').next('.track').addClass('active-track');
+    el.find('.active-track').removeClass('active-track').next('.track').setAsActiveTrack();
     el.animateToLast();
     t = setTimeout(function() {
       selectInProgress = false;
@@ -254,7 +262,7 @@ function selectPreviousTrack() {
     selectInProgress = true;
     var el = $('.active-playlist ul');
     el.animateToFirst();
-    el.find('.active-track').removeClass('active-track').prev('.track').addClass('active-track');
+    el.find('.active-track').removeClass('active-track').prev('.track').setAsActiveTrack();
     t = setTimeout(function() {
       selectInProgress = false;
     }, 250);
@@ -489,7 +497,26 @@ function decellerate() {
   }, 200);
 }
 
+function toggleWarning(speed) {
+  if (speed > 45) {
+    warning.css({
+      'opacity': '1',
+      'transform': 'scale(1)'
+    });
+    //device.css('background-color', 'rgba(255, 180, 100, .5)');
+    progress.css('background-color', 'rgba(255, 90, 50, 1)');
+  } else {
+    warning.css({
+      'opacity': '0',
+      'transform': 'scale(1.2)'
+    });
+    //device.css('background-color', 'rgba(0, 0, 0, .5)');
+    progress.css('background-color', 'rgba(24, 140, 200, 1)');
+  }
+}
+
 function setSpeed(speed) {
+  toggleWarning(speed);
   speedValue.html(speed);
   var rotation = Math.floor((speed/120) * 136.5);
   var fill_rotation = rotation;
@@ -500,13 +527,111 @@ function setSpeed(speed) {
   }
 }
 
+var supportTouch = $.support.touch,
+            scrollEvent = "touchmove scroll",
+            touchStartEvent = supportTouch ? "touchstart" : "mousedown",
+            touchStopEvent = supportTouch ? "touchend" : "mouseup",
+            touchMoveEvent = supportTouch ? "touchmove" : "mousemove";
+    $.event.special.swipeupdown = {
+        setup: function() {
+            var thisObject = this;
+            var $this = $(thisObject);
+            $this.bind(touchStartEvent, function(event) {
+                var data = event.originalEvent.touches ?
+                        event.originalEvent.touches[ 0 ] :
+                        event,
+                        start = {
+                            time: (new Date).getTime(),
+                            coords: [ data.pageX, data.pageY ],
+                            origin: $(event.target)
+                        },
+                        stop;
+
+                function moveHandler(event) {
+                    if (!start) {
+                        return;
+                    }
+                    var data = event.originalEvent.touches ?
+                            event.originalEvent.touches[ 0 ] :
+                            event;
+                    stop = {
+                        time: (new Date).getTime(),
+                        coords: [ data.pageX, data.pageY ]
+                    };
+
+                    // prevent scrolling
+                    if (Math.abs(start.coords[1] - stop.coords[1]) > 10) {
+                        event.preventDefault();
+                    }
+                }
+                $this
+                        .bind(touchMoveEvent, moveHandler)
+                        .one(touchStopEvent, function(event) {
+                    $this.unbind(touchMoveEvent, moveHandler);
+                    if (start && stop) {
+                        if (stop.time - start.time < 1000 &&
+                                Math.abs(start.coords[1] - stop.coords[1]) > 30 &&
+                                Math.abs(start.coords[0] - stop.coords[0]) < 75) {
+                            start.origin
+                                    .trigger("swipeupdown")
+                                    .trigger(start.coords[1] > stop.coords[1] ? "swipeup" : "swipedown");
+                        }
+                    }
+                    start = stop = undefined;
+                });
+            });
+        }
+    };
+    $.each({
+        swipedown: "swipeupdown",
+        swipeup: "swipeupdown"
+    }, function(event, sourceEvent){
+        $.event.special[event] = {
+            setup: function(){
+                $(this).bind(sourceEvent, $.noop);
+            }
+        };
+    });
+
 $(document).ready(function() {
   selector = $('#selector');
   speedDial = $('#speed-dial');
   speedValue = $('#speed');
   sdFill = $('#sd-progress .circle .fill, .circle .mask.full');
   sdFix = $('.circle .fill.fix');
+  
+  // For Warning Notifications
+  warning = $('#warning');
+  device = $('#device div');
+  progress = $('#sd-progress .circle .mask .fill');
+  
   startTime();
   activateCalls();
   decellerate();
+  
+  /*
+  $(document).on('swipedown', function() { handleSwipeDown() } );
+  $(document).on('swipeup', function() { handleSwipeUp() } );
+  */
+  
+  /* Ghetto interaction for phonegap atm */
+  $('#speed-dial').on('click', function() {
+    setSpeed(Math.floor(Math.random()*120));
+  } );
+  
+  $('#speed-dial').on('touchend', function() {
+  } );
+  
+  $('#menu-calls').click(function() { activateCalls() } );
+  $('#menu-navigation').click(function() { activateNavigation() } );
+  $('#menu-music').click(function() { activateMusic() } );
+  
+  $('#next-song').click(function() { selectPreviousTrack() } );
+  $('#prev-song').click(function() { selectNextTrack() } );
+  
+  $('#next-contact').click(function() { selectPreviousContact() } );
+  $('#prev-contact').click(function() { selectNextContact() } );
+  
+  $('#music .view-header').click(function() { selectNextPlaylist() } );
+
 })
